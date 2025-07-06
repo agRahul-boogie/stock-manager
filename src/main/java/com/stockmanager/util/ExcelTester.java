@@ -7,6 +7,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * This is a simple utility class to test Excel file structure.
+ * It's not using JUnit framework, but rather a standalone application
+ * that can be run to verify Excel file structure and content.
+ * This helps with debugging and understanding the Excel file format.
+ */
 public class ExcelTester {
     
     public static void main(String[] args) {
