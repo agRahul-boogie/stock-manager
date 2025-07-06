@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Processing Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1000px;
+            margin-top: 30px;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .list-group-item.success {
+            background-color: #d4edda;
+        }
+        .list-group-item.error {
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Batch Processing Results</h1>
+        
+        <div class="actions-bar d-flex justify-content-between align-items-center mb-4">
+            <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
+        </div>
+        
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Summary</span>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info" role="alert">
+                    <p th:text="${batchResults.message}">Processing summary</p>
+                    <p>
+                        <strong>Total Processed:</strong> <span th:text="${batchResults.totalProcessed}">0</span><br>
+                        <strong>Total Failed:</strong> <span th:text="${batchResults.totalFailed}">0</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" th:if="${not #lists.isEmpty(batchResults.processedFiles)}">
+            <div class="card-header">
+                Successfully Processed Files
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item success" th:each="file : ${batchResults.processedFiles}" th:text="${file}">
+                    filename.xlsx -> filename.pdf
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card" th:if="${not #lists.isEmpty(batchResults.failedFiles)}">
+            <div class="card-header">
+                Failed Files
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item error" th:each="file : ${batchResults.failedFiles}" th:text="${file}">
+                    filename.xlsx (Error: error message)
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

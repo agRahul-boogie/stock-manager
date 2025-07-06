@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+        .actions-bar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Stock Analysis Results</h1>
+        
+        <div class="actions-bar d-flex justify-content-between align-items-center">
+            <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
+            
+            <div>
+                <a th:href="@{/generate-pdf}" 
+                   class="btn btn-primary">
+                    Generate PDF Report
+                </a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Processed File: <strong th:text="${fileName}"></strong></span>
+                <span>Total Items: <strong th:text="${stockItems.size()}"></strong></span>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Primary Quantity</th>
+                            <th>Base Unit</th>
+                            <th>Secondary Quantity</th>
+                            <th>Secondary Unit</th>
+                            <th>Conversion Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${stockItems}">
+                            <td th:text="${item.itemName}"></td>
+                            <td th:text="${item.formattedStockQuantity}"></td>
+                            <td th:text="${item.shortBaseUnit}"></td>
+                            <td th:text="${item.formattedSecondaryUnitQuantity}"></td>
+                            <td th:text="${item.shortSecondaryUnit}"></td>
+                            <td th:text="${item.conversionRate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
